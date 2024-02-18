@@ -6,10 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'spesa_lista';
-  eventGet: string = 'recepi';
-
-  onSelected(event: string) {
-    this.eventGet = event;
-  }
+ 
 }

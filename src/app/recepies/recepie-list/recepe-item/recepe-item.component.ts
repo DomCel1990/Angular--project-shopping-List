@@ -16,6 +16,6 @@ export class RecepeItemComponent {
     ) { }
 
   onEmitter() {
-    this.recepieServce.recepiEmitter.emit( this.recipe );
+    this.recepieServce.recepiEmitter.next( this.recipe );
   }
 }

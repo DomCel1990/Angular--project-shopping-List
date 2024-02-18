@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'spesa_lista';
+  eventGet: string = 'recepi';
+
+  onSelected(event: string) {
+    this.eventGet = event;
+  }
 }

@@ -8,17 +8,16 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class RecipeService {
+  resepieChenge = new Subject<Recipe[]>();
   private recipes: Recipe[] =
     [
       new Recipe(
-        1,
         'Carbonata',
         'Una grande ricetta romana',
         'https://blog.giallozafferano.it/albe/wp-content/uploads/2020/08/15FA1142-B5FA-410C-878B-2B8745B85F64.jpeg',
         [new Ingredient('Pancetta', 5), new Ingredient('Pasta', 5)]
       ),
       new Recipe(
-        2,
         'Hamburger',
         'Carne Chianina e insalta',
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROkFvpH71dKBRZcIzXLy4x-FvJiEJGHaEZCw&usqp=CAU',
@@ -41,5 +40,20 @@ export class RecipeService {
 
   onAddIngridients(ingredient: Ingredient[]) {
     this.shoppingService.addElementsList(ingredient);
+  }
+
+  addRecepi(recepe: Recipe) {
+    this.recipes.push(recepe);
+    this.resepieChenge.next(this.recipes.slice());
+  }
+
+  updateRecepie(index: number, recepie: Recipe) {
+    this.recipes[index] = recepie;
+    this.resepieChenge.next(this.recipes.slice());
+  }
+
+  deleteRecepe(index: number) {
+    this.recipes.splice(index, 1);
+    this.resepieChenge.next(this.recipes.slice());
   }
 }

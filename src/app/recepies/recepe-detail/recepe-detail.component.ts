@@ -22,7 +22,6 @@ export class RecepeDetailComponent implements OnInit{
       .subscribe((param: Params) => { 
         this.id = +param['id']
         this.recepie = this.recepiService.getRecepie(this.id);
-        console.log(this.recepie)
       });
   }
 
@@ -35,5 +34,10 @@ export class RecepeDetailComponent implements OnInit{
     this.router.navigate(['edit'], {relativeTo: this.activateRoute});
     // this.router.navigate(['recepie', this.id, 'edit']);
     }
+
+  onDeleteRecepie() {
+    this.recepiService.deleteRecepe(this.id);
+    this.router.navigate(['/recepie'])
+  }
 
 }

@@ -16,6 +16,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.ingredients = this.shoppingService.getIngrediet();
+    
     this.addElement()
   }
   

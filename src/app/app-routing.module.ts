@@ -1,30 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-
-import { RecepiesComponent } from './recepies/recepies.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { RecepeItemComponent } from './recepies/recepie-list/recepe-item/recepe-item.component';
-import { RecepieStartComponent } from './recepies/recepie-start/recepie-start.component';
-import { RecepeDetailComponent } from './recepies/recepe-detail/recepe-detail.component';
-import { RecepieEditComponent } from './recepies/recepie-edit/recepie-edit.component';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const router: Routes = [
-  {path: '', redirectTo: '/recepie', pathMatch: 'full'},
-  {path: 'recepie', component: RecepiesComponent, children: [
-    {path: '', component: RecepieStartComponent},
-    { path: 'new', component: RecepieEditComponent},
-    { path: ':id', component: RecepeDetailComponent},
-    { path: ':id/edit', component: RecepieEditComponent},
-  ]},
-  {path: 'shopping-list', component: ShoppingListComponent},
+  { path: '', redirectTo: '/recepie', pathMatch: 'full' },
+
+  // implemento il caricamento pigro (lazy loading)
+  {
+    path: 'recepie', loadChildren: () =>
+      import('./recepies/recepie.module')
+        .then(module => module.RecepiModule)
+  },
+  {
+    path: 'shopping-list', loadChildren: () =>
+      import('./shopping-list/shopping-list.module')
+        .then(module => module.ShoppingListModule)
+  },
+  {
+    path: 'auth', loadChildren: () =>
+      import('./auth/auth.module')
+        .then(module => module.AuthModule)
+  }
+
 ]
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(router)
+    RouterModule.forRoot(router, {preloadingStrategy: PreloadAllModules })
   ],
   exports: [
     RouterModule
